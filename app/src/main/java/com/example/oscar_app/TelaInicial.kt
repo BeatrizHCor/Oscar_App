@@ -7,8 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import com.example.oscar_app.votoData.VotoData
 
 class TelaInicial : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -17,6 +20,8 @@ class TelaInicial : AppCompatActivity() {
         val btnfilm = findViewById<Button>(R.id.votarFilmeButton)
         val btndiretor = findViewById<Button>(R.id.votarDiretorButton)
         val btnconfirmar = findViewById<Button>(R.id.confirmarButton)
+        println("Diretor:" + VotoData.diretorName)
+
         btnsair.setOnClickListener {
             finishAffinity()
         }

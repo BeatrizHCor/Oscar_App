@@ -9,7 +9,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.oscar_app.models.Diretor
+import com.example.oscar_app.votoData.VotoData
 
 class VotarDiretor : AppCompatActivity() {
     var diretores: Array<Diretor> = arrayOf(Diretor(1, "James Cameron"), Diretor(2, "Alfred Hitchcoc"), Diretor(4, "Steven Spielberg"))
@@ -19,6 +21,8 @@ class VotarDiretor : AppCompatActivity() {
         setContentView(R.layout.activity_votar_diretor)
         val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
         val btn = findViewById<Button>(R.id.button3)
+        println("Diretor:" + VotoData.diretorName)
+
         for(diretor in diretores){
             val radioButton = RadioButton(this).apply {
                 text = diretor.name
@@ -26,13 +30,17 @@ class VotarDiretor : AppCompatActivity() {
             }
             radioGroup.addView(radioButton)
         }
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            val selectedPessoa = diretores.find { it.id == checkedId }
-            selectedPessoa?.let {
-                Toast.makeText(this, "Selecionado: ${it.name}", Toast.LENGTH_SHORT).show()
-            }
+
+        VotoData.diretorId?.let { savedId ->
+            radioGroup.check(savedId)
         }
+
         btn.setOnClickListener{
+            val selectedPessoa = diretores.find { it.id == radioGroup.checkedRadioButtonId }
+            selectedPessoa?.let {
+                VotoData.diretorId = selectedPessoa.id
+                VotoData.diretorName = selectedPessoa.name
+            }
             finish()
         }
 
@@ -42,5 +50,6 @@ class VotarDiretor : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
     }
 }
