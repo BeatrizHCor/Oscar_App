@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.oscar_app.models.Filme
 import com.example.oscar_app.votoData.VotoData
@@ -34,13 +35,11 @@ class DetalhesFilme : AppCompatActivity() {
                 VotoData.filmeId = it.id
                 VotoData.filmeName = it.name
                 println("Voto registrado localmente: ${it.name}")
+                Toast.makeText(this, "Voto registrado com sucesso para: ${it.name}", Toast.LENGTH_SHORT).show()
+                val telaInicialIntent = Intent(this, TelaInicial::class.java)
+                startActivity(telaInicialIntent)
+                finish()
             }
-        }
-
-        voltarButton.setOnClickListener {
-            val telaInicialIntent = Intent(this, TelaInicial::class.java)
-            startActivity(telaInicialIntent)
-            finish()
         }
     }
 }
